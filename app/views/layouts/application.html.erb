@@ -7,8 +7,38 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<% if current_user %>
+  <p>Hello, <%= current_user.user_name %>!</p>
+<% end %>
 
+<%= render "shared/errors" %>
 <%= yield %>
 
+<% if current_user %>
+  <form action="/sessions" method="post">
+    <input type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token  %>">
+    <input type="hidden" name="_method" value="DELETE">
+
+    <input type="submit" value="Logout">
+  </form>
+<% else %>
+  <form action="<%= new_sessions_url  %>" method="GET">
+    <input type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token  %>">
+    <input type="submit" value="Login">
+  </form>
+
+  <form action="<%= new_user_url  %>" method="GET">
+    <input type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token  %>">
+    <input type="submit" value="Sign up">
+  </form>
+<% end %>
+
+  <%= link_to "catindex", cats_url %>
 </body>
 </html>

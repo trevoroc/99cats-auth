@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   attr_reader :password
-  
-  def reset_session_token
+
+  def reset_session_token!
     self.session_token = SecureRandom::urlsafe_base64(32)
     self.save!
     self.session_token

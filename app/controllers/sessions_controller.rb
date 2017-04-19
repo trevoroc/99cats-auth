@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class SessionsController < ApplicationController
   before_action :check_user_logged_in
 
   def new
@@ -6,21 +6,21 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      #login(@user)
+    @user = User.find_by_credentials(params[:user][:user_name], params[:user][:password])
+    if @user
+      login(@user)
       redirect_to cats_url
     else
-      flash[:errors] = @user.errors.full_messages
-      redirect_to new_user_url
+      render :new
     end
   end
 
-  private
-
-  def user_params
-    params.require(:user).permit(:user_name, :password)
+  def destroy
+    logout
+    redirect_to cats_url
   end
+
+  private
 
   def check_user_logged_in
     # fail

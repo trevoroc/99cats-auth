@@ -1,7 +1,7 @@
-<h1>New User for 99cats!</h1>
+<h1>Log in to 99cats!</h1>
 <%= render "shared/errors" %>
 
-<form action="<%= users_url %>" method="POST">
+<form action="<%= sessions_url %>" method="POST">
   <input type="hidden"
     name="authenticity_token"
     value="<%= form_authenticity_token  %>">
