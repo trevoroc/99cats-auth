@@ -10,8 +10,6 @@
 <% if current_user %>
   <p>Hello, <%= current_user.user_name %>!</p>
 <% end %>
-
-<%= render "shared/errors" %>
 <%= yield %>
 
 <% if current_user %>
